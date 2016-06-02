@@ -17,22 +17,4 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
-#include <stdio.h>
-#include <support.h>
-
-void initialise_board()
-{
-    printf("initialise_board()\n");
-}
-
-void start_trigger()
-{
-    printf("start_trigger()\n");
-}
-
-void stop_trigger()
-{
-    printf("stop_trigger()\n");
-}
-
-
+#define BOARD_REPEAT_FACTOR 256
