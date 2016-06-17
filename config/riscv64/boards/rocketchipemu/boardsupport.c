@@ -28,10 +28,14 @@ void initialise_board()
 void start_trigger()
 {
     printf("start_trigger()\n");
+    // 0x45 = 'E', 0x4D = 'M', 0x42 = 'B', 0x45 = 'E'
+    asm volatile ("addi a0, a0, 0x45\n addi a0, a0, 0x4D\n addi a0, a0, 0x42\n addi a0, a0, 0x45" : : : "a0");
 }
 
 void stop_trigger()
 {
+    // 0x43 = 'C', 0x4F = 'O', 0x53 = 'S', 0x4D = 'M'
+    asm volatile ("addi a0, a0, 0x43\n addi a0, a0, 0x4F\n addi a0, a0, 0x53\n addi a0, a0, 0x4D" : : : "a0");
     printf("stop_trigger()\n");
 }
 
