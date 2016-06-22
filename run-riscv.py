@@ -27,25 +27,45 @@ with open("log_file.txt", "w") as outfile:
     jobs = { executor.submit(run, bm, outfile): bm for bm in names }
     all_success = True
 
+    results = {}
+
     for worker in as_completed(jobs):
         try:
             bm, args, result = worker.result()
+            stdout = result.stdout.decode('utf-8')
+            stderr = result.stderr.decode('utf-8')
 
             print("Finished running %s with:\n\n%s\n" % (bm, args), file=outfile)
-            print("Output:\n\n%s\n" % result.stdout.decode('utf-8'), file=outfile)
-            print("Errors:\n\n%s\n" % result.stderr.decode('utf-8'), file=outfile)
+            print("Output:\n\n%s\n" % stdout, file=outfile)
+            print("Errors:\n\n%s\n" % stderr, file=outfile)
 
             if result.returncode != 0:
                 print("Error running %s" % bm, file=outfile)
                 print("Err code %s" % result.returncode, file=outfile)
                 all_success = False
+            else:
+                count_lines = [ line for line in stdout.splitlines() if 'Cycle count'  in line ]
+                if len(count_lines) != 1:
+                    print("Error getting cycle count for %s" % bm, file=outfile)
+                else:
+                    count = int(count_lines[0].split()[4])
+                    results[bm] = count
         except Exception as exc:
             import traceback
             print("Job %s generated an exception: %s" % (worker, exc), file=outfile)
             traceback.print_exc(file=outfile)
             all_success = False
 
+        outfile.flush()
+
     if all_success:
         print("All ran successfully", file=outfile)
+        print("All ran successfully")
     else:
         print("Some failures", file=outfile)
+        print("Some failures")
+
+with open("results.txt", "w") as outfile:
+    for bm, count in results.items():
+        print("%s\t%s" % (bm, count))
+        print("%s\t%s" % (bm, count), file=outfile)
