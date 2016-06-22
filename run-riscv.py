@@ -28,6 +28,7 @@ with open("log_file.txt", "w") as outfile:
     all_success = True
 
     results = {}
+    done_count = 1
 
     for worker in as_completed(jobs):
         try:
@@ -35,6 +36,7 @@ with open("log_file.txt", "w") as outfile:
             stdout = result.stdout.decode('utf-8')
             stderr = result.stderr.decode('utf-8')
 
+            print("Finished running %s (%s / %s)" % (bm, done_count, len(names)))
             print("Finished running %s with:\n\n%s\n" % (bm, args), file=outfile)
             print("Output:\n\n%s\n" % stdout, file=outfile)
             print("Errors:\n\n%s\n" % stderr, file=outfile)
@@ -56,6 +58,7 @@ with open("log_file.txt", "w") as outfile:
             traceback.print_exc(file=outfile)
             all_success = False
 
+        done_count += 1
         outfile.flush()
 
     if all_success:
@@ -69,3 +72,4 @@ with open("results.txt", "w") as outfile:
     for bm, count in results.items():
         print("%s\t%s" % (bm, count))
         print("%s\t%s" % (bm, count), file=outfile)
+
