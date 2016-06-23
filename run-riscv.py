@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 from all_benchmarks import names
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -62,6 +63,7 @@ with open("log_file.txt", "w") as outfile:
 
         done_count += 1
         outfile.flush()
+        sys.stdout.flush()
 
     if all_success:
         print("All ran successfully", file=outfile)
