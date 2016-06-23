@@ -36,4 +36,8 @@ if __name__ == '__main__':
     results = OrderedDict(sorted(raw_results.items(), key=lambda t: t[0]))
     for item in results:
         print(item)
-    plot(results, show=True, savefile='demo.png')
+    if results:
+        plot(results, show=True, savefile='demo.png')
+    else:
+        print("No results")
+        sys.exit(1)
