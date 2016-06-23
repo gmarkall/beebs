@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -24,9 +26,10 @@ def plot(results, *, show=False, savefile=None):
 
 if __name__ == '__main__':
     import sys
-    #raw_results  = { '2dfir': 1234, 'cubic': 2543, 'adpcm': 2655, 'aes': 5667 }
     raw_results = {}
-    with open(sys.argv[1]) as f:
+    inputfile = sys.argv[1]
+    savefile = sys.argv[2]
+    with open(inputfile) as f:
         for line in f.readlines():
             split = line.split()
             if len(split) > 0: # Ignore blank lines
@@ -37,7 +40,7 @@ if __name__ == '__main__':
     for item in results:
         print(item)
     if results:
-        plot(results, show=True, savefile='demo.png')
+        plot(results, savefile=savefile)
     else:
         print("No results")
         sys.exit(1)
