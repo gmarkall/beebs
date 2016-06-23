@@ -13,6 +13,9 @@ def plot(results, *, show=False, savefile=None):
     width = 0.8
 
     fig, ax = plt.subplots()
+    fig.set_dpi(100)
+    fig.set_size_inches(18, 11.5)
+    fig.set_size_inches
     rects1 = ax.bar(ind, counts, width)
     ax.set_xticks(ind + (width / 2))
     ax.set_xticklabels(bms, rotation=45, ha='right')
