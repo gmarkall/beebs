@@ -14,7 +14,7 @@ print("Benchmarks to run:\n\n%s\n" % "\n".join(names))
 def run(bm, outfile):
     bm_path = os.path.join(WORKDIR, 'src', bm, bm)
     args = [
-        './emulator-Top-DefaultConfig',
+        'emulator-Top-DefaultConfig',
         '+dramsim',
         '+max-cycles=100000000',
         'pk',
