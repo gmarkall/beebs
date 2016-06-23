@@ -9,6 +9,8 @@ WORKDIR = os.path.abspath(os.path.dirname(__file__))
 
 WORKERS = 8
 
+print("Benchmarks to run:\n\n%s\n" % "\n".join(names))
+
 def run(bm, outfile):
     bm_path = os.path.join(WORKDIR, 'src', bm, bm)
     args = [
